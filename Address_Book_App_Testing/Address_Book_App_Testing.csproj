@@ -21,4 +21,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Address_Book_App_Repo\Address_Book_App_Repo.csproj" />
+  </ItemGroup>
+
 </Project>
