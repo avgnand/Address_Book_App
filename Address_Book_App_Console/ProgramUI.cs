@@ -76,6 +76,15 @@ public class ProgramUI
         }
     }
 
+    private static int AskValidID(string? input) {
+        try {
+            return Convert.ToInt32(input);
+        } catch (Exception e) {
+            System.Console.WriteLine(e.Message);
+            return 0;
+        }
+    }
+
     private void CreateContact() {
         System.Console.Clear();
         System.Console.WriteLine("*** --- Create Contact --- ***\n");
@@ -131,14 +140,10 @@ public class ProgramUI
 
         System.Console.WriteLine("Enter ID: ");
 
-        string? response = System.Console.ReadLine();
-        int targetID;
-        try {
-            targetID = Convert.ToInt32(response);
-        } catch (Exception e) {
-            System.Console.WriteLine(e.Message);
-            System.Console.WriteLine("Returning to menu...");
-            return;
+        int targetID = AskValidID(System.Console.ReadLine());
+        if (targetID == 0) {
+            System.Console.WriteLine("Returning to menu..."); 
+            return; 
         }
 
         Contact? target = _contacts.GetContactByID(targetID);
@@ -176,12 +181,9 @@ public class ProgramUI
         System.Console.WriteLine("*** --- Edit Contact Name --- ***");
 
         System.Console.WriteLine("ID: ");
-        string? response = System.Console.ReadLine();
-        int targetID;
-        try {
-            targetID = Convert.ToInt32(response);
-        } catch (Exception e) {
-            System.Console.WriteLine(e.Message);
+
+        int targetID = AskValidID(System.Console.ReadLine());
+        if (targetID == 0) {
             System.Console.WriteLine("Returning to menu...");
             return;
         }
@@ -194,7 +196,7 @@ public class ProgramUI
 
         System.Console.WriteLine("Name: ");
         string? name = System.Console.ReadLine();
-        if (name == null) {
+        if (name == null || name == "") {
             System.Console.WriteLine("Invalid name. Returning to menu...");
             return;
         }
@@ -208,12 +210,9 @@ public class ProgramUI
         System.Console.WriteLine("*** --- Edit Contact Address --- ***");
 
         System.Console.WriteLine("ID: ");
-        string? response = System.Console.ReadLine();
-        int targetID;
-        try {
-            targetID = Convert.ToInt32(response);
-        } catch (Exception e) {
-            System.Console.WriteLine(e.Message);
+
+        int targetID = AskValidID(System.Console.ReadLine());
+        if (targetID == 0) {
             System.Console.WriteLine("Returning to menu...");
             return;
         }
@@ -226,7 +225,7 @@ public class ProgramUI
 
         System.Console.WriteLine("Address: ");
         string? address = System.Console.ReadLine();
-        if (address == null) {
+        if (address == null || address == "") {
             System.Console.WriteLine("Invalid address. Returning to menu...");
             return;
         }
@@ -240,12 +239,9 @@ public class ProgramUI
         System.Console.WriteLine("*** --- Remove Contact --- ***");
 
         System.Console.WriteLine("ID: ");
-        string? response = System.Console.ReadLine();
-        int targetID;
-        try {
-            targetID = Convert.ToInt32(response);
-        } catch (Exception e) {
-            System.Console.WriteLine(e.Message);
+
+        int targetID = AskValidID(System.Console.ReadLine());
+        if (targetID == 0) {
             System.Console.WriteLine("Returning to menu...");
             return;
         }
