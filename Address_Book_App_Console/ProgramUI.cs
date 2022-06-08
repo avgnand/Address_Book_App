@@ -69,7 +69,7 @@ public class ProgramUI
 
     private static string GetPlaceholderString(string? s) {
         // Used by program to fill empty contact properties for display purposes.
-        if (s == null) {
+        if (s == null || s == "") {
             return "-";
         } else {
             return s;
