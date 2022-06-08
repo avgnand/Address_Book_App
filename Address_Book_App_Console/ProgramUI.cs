@@ -20,8 +20,10 @@ public class ProgramUI
             "4. Search contacts by name\n" + 
             "5. Edit contact name\n" + 
             "6. Edit contact address\n" + 
-            "7. Remove contact\n" + 
-            "8. Exit application");
+            "7. Edit contact phone\n" + 
+            "8. Edit contact email\n" + 
+            "9. Remove contact\n" + 
+            "10. Exit application");
 
             string? response = Console.ReadLine();
 
@@ -51,10 +53,18 @@ public class ProgramUI
                     System.Console.ReadKey();
                     break;
                 case "7":
-                    RemoveContact();
+                    EditContactPhone();
                     System.Console.ReadKey();
                     break;
                 case "8":
+                    EditContactEmail();
+                    System.Console.ReadKey();
+                    break;
+                case "9":
+                    RemoveContact();
+                    System.Console.ReadKey();
+                    break;
+                case "10":
                     System.Console.WriteLine("Exiting...");
                     WillRerun = false;
                     break;
@@ -201,7 +211,7 @@ public class ProgramUI
             return;
         }
 
-        contact.Name = name;
+        _contacts.EditContactName(targetID, name);
         System.Console.WriteLine($"Contact {contact.ContactID} name changed.");
     }
 
@@ -230,8 +240,63 @@ public class ProgramUI
             return;
         }
 
-        contact.Address = address;
+        _contacts.EditContactAddress(targetID, address);
         System.Console.WriteLine($"Contact {contact.ContactID} address changed.");
+    }
+
+    private void EditContactPhone() {
+        System.Console.Clear();
+        System.Console.WriteLine("*** --- Edit Contact Phone --- ***");
+
+        System.Console.WriteLine("ID: ");
+        int targetID = AskValidID(System.Console.ReadLine());
+        if (targetID == 0) {
+            System.Console.WriteLine("Returning to menu...");
+            return;
+        }
+
+        Contact? contact = _contacts.GetContactByID(targetID);
+        if (contact == null) {
+            System.Console.WriteLine("Contact not found. Returning to menu...");
+            return;
+        }
+
+        System.Console.WriteLine("Phone: ");
+        string? phone = System.Console.ReadLine();
+        if (phone == null || phone == "") {
+            System.Console.WriteLine("Invalid phone number. Returning to menu...");
+            return;
+        }
+
+        _contacts.EditContactPhone(targetID, phone);
+        System.Console.WriteLine($"Contact {contact.ContactID} phone changed.");
+    }
+
+    private void EditContactEmail() {
+        System.Console.Clear();
+        System.Console.WriteLine("*** --- Edit Contact Email --- ***");
+
+        int targetID = AskValidID(System.Console.ReadLine());
+        if (targetID == 0) {
+            System.Console.WriteLine("Returning to menu...");
+            return;
+        }
+
+        Contact? contact = _contacts.GetContactByID(targetID);
+        if (contact == null) {
+            System.Console.WriteLine("Contact not found. Returning to menu...");
+            return;
+        }
+
+        System.Console.WriteLine("Email: ");
+        string? email = System.Console.ReadLine();
+        if (email == null || email == "") {
+            System.Console.WriteLine("Invalid email address. Returning to menu...");
+            return;
+        }
+
+        _contacts.EditContactEmail(targetID, email);
+        System.Console.WriteLine($"Contact {contact.ContactID} email changed.");
     }
 
     private void RemoveContact() {

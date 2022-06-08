@@ -53,7 +53,23 @@ public class Address_Book_App_Data
         }
     }
 
-    // TODO: Add more Update methods
+    public void EditContactPhone(int IDnum, string phone) {
+        Contact? target = GetContactByID(IDnum);
+        if (target != null) {
+            target.Phone = phone;
+        } else {
+            System.Console.WriteLine("Contact not found.");
+        }
+    }
+
+    public void EditContactEmail(int IDnum, string email) {
+        Contact? target = GetContactByID(IDnum);
+        if (target != null) {
+            target.Email = email;
+        } else {
+            System.Console.WriteLine("Contact not found.");
+        }
+    }
 
     public void RemoveContact(int IDnum) {
         Contact? target = GetContactByID(IDnum);
