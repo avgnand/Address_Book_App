@@ -88,6 +88,36 @@ public class UnitTest1
     }
 
     [Fact]
+    public void DidEditContactPhone() {
+        Address_Book_App_Data test = new Address_Book_App_Data();
+        test.AddContact(new Contact("Mario", "Oak Ave.", "mario@email.com", "5559787"));
+        test.AddContact(new Contact("Luigi", "Elm St.", "luigi@email.com", "5550486"));
+
+        int target_key = test._contacts.First(kvp => kvp.Value.Name == "Luigi").Key;
+        test.EditContactPhone(target_key, "8675309");
+
+        string expected = "8675309";
+        string? actual = test._contacts[target_key].Phone;
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void DidEditContactEmail() {
+        Address_Book_App_Data test = new Address_Book_App_Data();
+        test.AddContact(new Contact("Mario", "Oak Ave.", "mario@email.com", "5559787"));
+        test.AddContact(new Contact("Luigi", "Elm St.", "luigi@email.com", "5550486"));
+
+        int target_key = test._contacts.First(kvp => kvp.Value.Name == "Mario").Key;
+        test.EditContactEmail(target_key, "peach@email.com");
+
+        string expected = "peach@email.com";
+        string? actual = test._contacts[target_key].Email;
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
     public void DidRemoveContact() {
         Address_Book_App_Data test = new Address_Book_App_Data();
         test.AddContact(new Contact("Foo"));
